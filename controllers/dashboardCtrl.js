@@ -86,7 +86,6 @@ module.exports = {
       const plugins = await fs.readdirSync('./plugins');
       res.status(200).json({ error: false, msg: 'OK', plugins });
     } catch (error) {
-      console.log(error);
       res.status(501).json({ error: true, msg: 'KO', error_msg: 'Error during plugins scan' });
     }
   },
