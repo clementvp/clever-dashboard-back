@@ -2,14 +2,27 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
 const api = require('./routes/api.js');
 
 const app = express();
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: process.env.AUTH0_JWKURI,
+  }),
+  issuer: process.env.AUTH0_ISSUER,
+  algorithms: ['RS256'],
+});
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('./dist'));
 
-app.use('/api', api);
+app.use('/api', checkJwt, api);
 
 app.use('/plugins/:name', (req, res, next) => {
   const plugin = express.static(`./plugins/${req.params.name}`);
