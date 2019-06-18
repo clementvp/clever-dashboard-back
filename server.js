@@ -1,4 +1,5 @@
 require('dotenv').config();
+const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -26,7 +27,11 @@ app.use('/api', checkJwt, api);
 
 app.use('/plugins/:name', (req, res, next) => {
   const plugin = express.static(`./plugins/${req.params.name}`);
-  plugin(req, res, next);
+  if (fs.existsSync(`./plugins/${req.params.name}`)) {
+    plugin(req, res, next);
+  } else {
+    res.status(500).json({ error: true, msg: 'KO', error_msg: 'The plugin does not exist' });
+  }
 });
 
 const start = async () => {
