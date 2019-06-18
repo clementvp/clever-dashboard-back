@@ -30,7 +30,7 @@ app.use('/plugins/:name', (req, res, next) => {
     const plugin = express.static(`./plugins/${req.params.name}`);
     plugin(req, res, next);
   } else {
-    res.status(501).json({ error: true, msg: 'KO', error_msg: 'The plugin does not exist' });
+    res.status(501).json({ error: true, msg: 'KO', error_msg: 'This plugin does not exist' });
   }
 });
 
