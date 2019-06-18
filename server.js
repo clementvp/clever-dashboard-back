@@ -25,12 +25,12 @@ app.use(express.static('./dist'));
 
 app.use('/api', checkJwt, api);
 
-app.use('/plugins/:name', (req, res, next) => {
-  const plugin = express.static(`./plugins/${req.params.name}`);
-  if (fs.existsSync(`./plugins/${req.params.name}`)) {
+app.use('/plugins/:name', (req, res, next) => {  
+  if (fs.existsSync(`./plugins/${req.params.name}/index.html`)) {
+    const plugin = express.static(`./plugins/${req.params.name}`);
     plugin(req, res, next);
   } else {
-    res.status(500).json({ error: true, msg: 'KO', error_msg: 'The plugin does not exist' });
+    res.status(501).json({ error: true, msg: 'KO', error_msg: 'This plugin does not exist' });
   }
 });
 
@@ -41,7 +41,7 @@ const start = async () => {
       console.log('Example app listening on port 3000!');
     });
   } catch (error) {
-    console.log('Erreur connexion database');
+    console.log('Erreur database connexion');
   }
 };
 
