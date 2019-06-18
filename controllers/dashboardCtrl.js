@@ -22,10 +22,10 @@ module.exports = {
         await dashboardDal.deleteDashboard(id);
         res.status(200).json({ error: false, msg: 'OK' });
       } catch (error) {
-        res.status(501).json({ error: true, msg: 'KO', error_msg: 'Error during deletation of this dashboard' });
+        res.status(501).json({ error: true, msg: 'KO', error_msg: 'Error during dashboard\'s deletion' });
       }
     } else {
-      res.status(422).json({ error: true, msg: 'KO', error_msg: 'Missing id parameters' });
+      res.status(422).json({ error: true, msg: 'KO', error_msg: 'Missing id parameter' });
     }
   },
   async getAllDashboard(req, res) {
