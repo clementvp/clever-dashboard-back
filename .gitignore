@@ -89,7 +89,4 @@ typings/
 .dynamodb/
 
 
-#Plugins Directory
-plugins
-
 # End of https://www.gitignore.io/api/node
