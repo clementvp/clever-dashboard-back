@@ -35,7 +35,11 @@ app.use('/plugins/:name', (req, res, next) => {
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true });
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      user: 'root',
+      pass: 'root',
+    });
     app.listen(process.env.PORT || 3000, () => {
       console.info('Server is listening on port 3000!');
     });
