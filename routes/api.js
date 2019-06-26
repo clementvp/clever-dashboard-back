@@ -1,14 +1,19 @@
 const express = require('express');
-const dashboardCtrl = require('../controllers/dashboardCtrl.js');
+const createDashboard = require('../controllers/createDashboard');
+const deleteDashboard = require('../controllers/deleteDashboard');
+const getAllDashboards = require('../controllers/getAllDashboards');
+const getDashboard = require('../controllers/getDashboard');
+const writePlugins = require('../controllers/writePlugins.js');
+const getAllPlugins = require('../controllers/getAllPlugins.js');
 
 const router = express.Router();
 
-router.post('/dashboard', dashboardCtrl.createDashboard);
-router.get('/dashboard', dashboardCtrl.getAllDashboard);
-router.get('/dashboard/:id', dashboardCtrl.getDashboard);
-router.delete('/dashboard/:id', dashboardCtrl.deleteDashboard);
-router.post('/dashboard/:id/plugin', dashboardCtrl.writePlugins);
+router.post('/dashboard', createDashboard);
+router.get('/dashboard', getAllDashboards);
+router.get('/dashboard/:id', getDashboard);
+router.delete('/dashboard/:id', deleteDashboard);
+router.post('/dashboard/:id/plugin', writePlugins);
 
-router.get('/plugin', dashboardCtrl.getAllPlugins);
+router.get('/plugin', getAllPlugins);
 
 module.exports = router;
